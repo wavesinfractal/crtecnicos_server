@@ -1,0 +1,37 @@
+{
+  "name": "crtecnicos",
+  "version": "1.0.0",
+  "description": "Server de CRTecnicos",
+  "main": "index.js",
+  "scripts": {
+    "start": "babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --exec babel-node index.js"
+  },
+  "author": "WavesinFractal",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "apollo-server-express": "^2.9.7",
+    "bcryptjs": "^2.4.3",
+    "console-remote-client": "^0.5.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-import": "^0.7.1",
+    "graphql-tools": "^4.0.6",
+    "heroku": "^7.33.1",
+    "jsonwebtoken": "^8.5.1",
+    "merge-graphql-schemas": "^1.7.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.7.7",
+    "mongoose-auto-increment": "^5.0.1",
+    "mongoose-sequence": "^5.2.2",
+    "nodemailer": "^6.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
