@@ -1,55 +1,78 @@
 import { modelOrdenServicio } from "../models/OrdenServicio";
-import moment from 'moment'
+import { modelTecnicos } from "../models/Tecnicos";
+import { modelArticulo } from "../models/Articulo";
+import { modelUsuarios } from "../models/Usuarios";
+
+import moment from "moment";
 
 export const OrdenServicio = {
   Query: {
-    totalOrdenServicio: async (root,{cantidad}) => {
-    return await (modelOrdenServicio.countDocuments())
-
+    totalOrdenServicio: async (root, { cantidad }) => {
+      return await modelOrdenServicio.countDocuments();
     },
-    getOrdenesServicio: (root, { limite, buscar ,offset}, { sesion }) => {
+    getOrdenesServicio: (root, { limite, buscar, offset }, { sesion }) => {
       // if (!sesion) {
       // 	return null
       // }
-      const find =     JSON.parse(buscar) 
-      return modelOrdenServicio.find(find).limit(limite).skip(offset);
+      const find = JSON.parse(buscar);
+      return modelOrdenServicio
+        .find(find)
+        .limit(limite)
+        .skip(offset)
+        .populate("usuario")
+        .populate('articulo')
+        .populate('tecnico')
+        .exec(); 
+        ;
     },
     getOrdenServicio: async (root, { inputId }) => {
-      try {       
-        return await modelOrdenServicio.findById(inputId).exec();
+      try {   
+
+        let resultado = await modelOrdenServicio
+          .findOne({ _id: inputId })
+          .populate("usuario")
+          .populate('articulo')
+          .populate('tecnico')
+          .exec();          
+          return resultado
       } catch (err) {
-        console.log("Ocurrio un Error" + err);
+        return err
       }
     }
   },
   Mutation: {
-    crearOrdenServicio: async (root, { inputData }) => {
-      console.log(inputData);
-      const nuevaOrdenServicio = new modelOrdenServicio({
-        orden: inputData.orden,
-        estado: 0,        
-        fechainicio: moment().format("DD-MM-YYYY  h"),
-        cliente: inputData.cliente,
-        tecnico: inputData.tecnico,
-        serie: inputData.serie,
-        falla: inputData.falla,
-        direccion: inputData.direccion,
-        reporte: inputData.reporte
-        
-      });
-      nuevaOrdenServicio.id = nuevaOrdenServicio._id;
+    crearOrdenServicio: async (root, { input }) => {
       try {
-        const salvar = await nuevaOrdenServicio.save();
-        console.log("Guardo exitosamente los datos :D " + salvar);
+      //  console.log( modelTecnicos.findOne({tecnico: input.tecnico}))
+        const nuevaOrdenServicio = await new modelOrdenServicio({
+          
+          pendiente: true,
+          revizado: false,
+          estado: "PENDIENTE",
+          fecha_inicio: moment().format("L"),
+          fecha_programacion: moment(
+            input.fecha_programacion,
+            "DD-MM-YYYY"
+          ).format("L"),
+          usuario: input.usuario,
+          tecnico: input.tecnico,
+          articulo: input.articulo,
+          falla: input.falla,
+          direccion: input.direccion,
+          telefonos: input.telefonos
+        });
+        nuevaOrdenServicio.id = await nuevaOrdenServicio._id;
+        const salvar = await nuevaOrdenServicio.save()
+        
+       
         return salvar;
       } catch (err) {
-        console.log("Ocurrio un Error" + err);
-        res.status(500).send(err);
-        
+        return err;
       }
-    },actualizarCliente: async (root, { inputData }) => {
+    },
+    actualizarCliente: async (root, { inputData }) => {
       try {
-        const  actualizar = await modelOrdenServicio.findOneAndUpdate(
+        const actualizar = await modelOrdenServicio.findOneAndUpdate(
           { _id: inputData.id },
           inputData,
           { new: true }
@@ -59,17 +82,17 @@ export const OrdenServicio = {
         console.log(`Error al actualizar ${err}`);
       }
     },
-    eliminarOrdenServicio:async (root,{id})=>{
-       try {
-         const eliminar  = await modelOrdenServicio.findByIdAndRemove({_id:id})
-         eliminar
-         return "Se Borro"
-       } catch (error) {
-         console.log(error)
-       }
 
-
+    eliminarOrdenServicio: async (root, { id }) => {
+      try {
+        const eliminar = await modelOrdenServicio.findByIdAndRemove({
+          _id: id
+        });
+        eliminar;
+        return "Se Borro";
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
-  
 };

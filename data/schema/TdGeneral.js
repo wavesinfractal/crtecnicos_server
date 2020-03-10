@@ -15,16 +15,16 @@ export const  TdGeneral = `
         getClientes(limite:Int,offset:Int,buscar:String):[Cliente]       
         getCliente(inputId:ID):Cliente    
         #--------------------------------------------------------- 
-        getUsuarios(limite:Int,offset:Int,buscar:String):[Cliente]       
-        getUsuario(inputId:ID):Cliente
+        getUsuarios(limite:Int,offset:Int,buscar:String):[Usuario]       
+        getUsuario(inputId:ID):Usuario
     #--------------------------------------------------------- 
         getTecnicos(limite:Int,buscar:String):[Tecnico]
        
 #---------------------------------------------------------------
        getArticulos(limite:Int,offset:Int,buscar:ArticuloInput): [Articulo]
-       getArticulo(inputId:ID):Articulo
-        
+       getArticulo(inputId:ID):Articulo        
     }
+    
     type Mutation {   
         login(movil: Int!,password: String!) : Respuesta   
         CodConfirmacion(inputData:InputCodConf):String
@@ -44,7 +44,7 @@ export const  TdGeneral = `
         eliminarCliente(id:ID!):String    
     #---------------------------------------------------------------
     
-        crearOrdenServicio(inputData:OrdenServicioInput): OrdenServicio 
+        crearOrdenServicio(input:OrdenServicioInput): OrdenServicio 
         actualizarOrdenServicio(inputData:OrdenServicioInput): OrdenServicio
         eliminarOrdenServicio(id:ID!):OrdenServicio  
 

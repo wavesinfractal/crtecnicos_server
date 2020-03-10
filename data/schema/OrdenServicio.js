@@ -1,36 +1,45 @@
 
-export const TdOrdenServicio =  `
 
+export const TdOrdenServicio = `
+scalar Date
+scalar JSON
 type OrdenServicio {
 id:ID
 orden: Int
-estado:Int
-fechainicio: String
-cliente: String
-tecnico: String
-serie: String
+pendiente: Boolean
+revizado: Boolean
+estado: ESTADO
+fecha_inicio: Date
+fecha_programacion: Date
+usuario:  Usuario
+tecnico: Tecnico
+articulo: Articulo
 falla: String
 direccion: String
-reporte: Int
+telefonos: [Int]
+boletas: [Int]
 mensaje: String
 
 }
 
-
-
 input OrdenServicioInput {
-id:ID
 orden: Int
-estado:Int
-fechainicio: String
-cliente: String
+estado:ESTADO
+fecha_programacion: Date
+usuario: String
 tecnico: String
-serie: String
+articulo: String
 falla: String
 direccion: String
+telefonos: [Int]
 reporte: Int
 }
 
+enum ESTADO {
+  PENDIENTE
+  PXR
+  CANCELADO
+}
 
+`;
 
-`

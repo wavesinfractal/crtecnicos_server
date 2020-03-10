@@ -15,7 +15,7 @@ import {TdZonas} from './TdZonas'
 // const type3 = importSchema('data/schema/TdTecnicos.graphql')
 // const general = importSchema('data/schema/TdGeneral.graphql')
 
-const typeDefs = TdGeneral + TdClientes + TdTecnicos +TdOrdenServicio + TdArticulos + TdUsuarios + TdZonas
+const typeDefs = TdGeneral + TdClientes + TdTecnicos  + TdArticulos + TdUsuarios + TdZonas + TdOrdenServicio
  
 
 // const typeDefs = [

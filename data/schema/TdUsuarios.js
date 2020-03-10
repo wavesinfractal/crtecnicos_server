@@ -1,42 +1,34 @@
 
 export const TdUsuarios =
- `
-input UsuarioInput {
-  id:ID
-    movil: Int!
-    email: String!
-    password: String!
-	cedula: Int!
-	nombre: InputNombre!	
-	rol: String
-	foto: String
-	tecnicos :String
-	articulos : String
-	zona: InputZona
-	direccion: String
-	empresa: String
-	nacimiento: String
-  tiposervicio:  String    
-  
-}
+`
 type Usuario {    
-  id:ID
-  movil: Int
-  email: String 
+	id:ID
+	movil: Int
+	email: String 
 	cedula: Int
-	nombre: Nombre	
-	rol: String
+	nombre: Nombre		
 	foto: String
-	tecnicos :String
-	articulos : String
 	zona: Zona
 	direccion: String
+	telefonos: [Int]
 	empresa: String
 	nacimiento: String
-  tiposervicio:  String    
-  estado: Estado
-  mensaje: String 
+	status: Boolean
+	mensaje: String 	
+}
 
+input UsuarioInput {   
+    movil: Int!
+    email: String!
+	cedula: Int!
+    password: String!
+	nombre: InputNombre!		
+	foto: String
+	zona: InputZona
+	direccion: String
+	telefonos: [Int]
+	empresa: String
+	nacimiento: String 
 }
 
 type UsuarioAct {	
@@ -44,22 +36,13 @@ type UsuarioAct {
 	movil: Int
 	email: String	
 	cedula: Int
-	nombre: Nombre
-	apellido: String
-	rol: String
+	nombre: Nombre		
 	foto: String
 	zona: Zona	    
 	mensaje: String 
-	estado: Estado
+	status: Boolean
   }
 
-  enum Estado {
-	SINSESSION
-	PENDIENTE
-	CONFIRMADO
-	FAULT
-  }
- 
- 
+   
   `;
 

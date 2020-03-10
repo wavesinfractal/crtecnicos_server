@@ -1,5 +1,5 @@
 import { modelArticulo } from "../models/Articulo";
- const  Articulos = {
+const Articulos = {
   Query: {
     totalArticulos: async (root, { cantidad }) => {
       return await modelArticulo.countDocuments();
@@ -24,23 +24,20 @@ import { modelArticulo } from "../models/Articulo";
   },
   Mutation: {
     crearArticulo: async (root, { inputData }) => {
-      console.log(inputData);
-      const nuevoArticulo = new modelArticulo({
-        propietario: inputData.propietario,
-        serie: inputData.serie,
-        modelo: inputData.modelo,
-        imagenes: inputData.imagenes,
-        historial: inputData.historial,
-        proxmantenimiento: inputData.proxmantenimiento,           
-      });
-      nuevoArticulo.id = nuevoArticulo._id;
       try {
+        const nuevoArticulo = new modelArticulo({
+          propietario: inputData.propietario,
+          serie: inputData.serie,
+          modelo: inputData.modelo,
+          imagenes: inputData.imagenes
+        });
+        nuevoArticulo.id = nuevoArticulo._id;
+        
         const salvar = await nuevoArticulo.save();
-        console.log("Guardo exitosamente los datos :D " + salvar);
+        
         return salvar;
       } catch (err) {
-        console.log("Ocurrio un Error" + err);
-        res.status(500).send(err);
+        return err;
       }
     },
     actualizarArticulo: async (root, { inputData }) => {
@@ -66,4 +63,4 @@ import { modelArticulo } from "../models/Articulo";
     }
   }
 };
- export {Articulos}
+export { Articulos };

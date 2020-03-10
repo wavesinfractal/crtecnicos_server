@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import uniqueValidator from 'mongoose-unique-validator';
 const schematecnicos = new mongoose.Schema({
   cedula:{ type: Number, unique: true, require: [true, "El campo requerido"] },
   movil: { type: Number, unique: true, require: [true, "El campo requerido"] },
@@ -15,7 +15,7 @@ const schematecnicos = new mongoose.Schema({
   raking: Number,
   zonas:  [{ provincia: Number ,canton: Number, horario: String }]
 });
-
+schematecnicos.plugin(uniqueValidator);
 const modelTecnicos = mongoose.model("tecnicos", schematecnicos);
 
 export { modelTecnicos };

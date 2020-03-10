@@ -30,6 +30,7 @@ type Tecnico {
   skills: [Skills]
   raking: Float
   zonas: [ZonaTec]
+  mensaje: String
 }
 
 

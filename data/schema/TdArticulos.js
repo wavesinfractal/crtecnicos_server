@@ -6,19 +6,16 @@ type Articulo {
   serie: String
   modelo: String
   imagenes: [ImagenArticulo]
-  historial: [Historial]
-  proxmantenimiento: String
+  mensaje: String
 }
 
 
-input ArticuloInput {
-  id: ID
-  propietario: String
-  serie: String 
-  modelo: String
-  imagenes: [InputImagenArticulo]
-  historial: [InputHistorial]
-  proxmantenimiento: String
+ input ArticuloInput {  
+  propietario: String!
+  serie: String !
+  modelo: String!
+  fechacompra: String
+  imagenes: [InputImagenArticulo] 
 }
 
 type ImagenArticulo {

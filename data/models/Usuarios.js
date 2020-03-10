@@ -1,22 +1,20 @@
 import mongoose from "mongoose";
+import uniqueValidator from 'mongoose-unique-validator';
 import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema({
   movil: { type: Number, unique: true, require: [true, "El campo requerido"] },
   email: { type: String, unique: true, require: [true, "El campo requerido"] },
-  password: String,
-  cedula: Number,
-  nombre: { nombre: String, apellido1: String, apellido2: String },    
-  rol: String,
+  cedula: { type: Number, unique: true, require: [true, "El campo requerido"] },
+  password: { type: String, require: [true, "El campo requerido"] },
+  nombre: { nombre: String, apellido1: String, apellido2: String },
   foto: String,
-  tecnicos: { type: mongoose.Schema.Types.ObjectId, ref: "tecnicos" },
-  articulos: { type: mongoose.Schema.Types.ObjectId, ref: "articulos" },
-  zona: {provincia:Number,canton:Number,distrito:Number},
-  direccion: String,
+  zona: { provincia: Number, canton: Number, distrito: Number },
+  direccion: { type: String, require: [true, "El campo requerido"] },
+  telefonos: [Number],
   empresa: String,
   nacimiento: String,
-  tiposervicio: String,
-  estado:{ type: String, enum:["PENDIENTE", "CONFIRMADO", "FAULT" ]}
+  status: { type: Boolean }
 });
 
 userSchema.pre("save", function(next) {
@@ -33,6 +31,6 @@ userSchema.pre("save", function(next) {
     });
   });
 });
-
+userSchema.plugin(uniqueValidator);
 const modelUsuarios = mongoose.model("usuarios", userSchema);
 export { modelUsuarios };

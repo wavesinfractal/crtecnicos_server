@@ -26,9 +26,10 @@
     "jsonwebtoken": "^8.5.1",
     "merge-graphql-schemas": "^1.7.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.7.7",
+    "mongoose": "^5.9.4",
     "mongoose-auto-increment": "^5.0.1",
     "mongoose-sequence": "^5.2.2",
+    "mongoose-unique-validator": "^2.0.3",
     "nodemailer": "^6.3.1"
   },
   "devDependencies": {}

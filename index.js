@@ -4,11 +4,11 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs } from "./data/schema/";
 import { resolvers } from "./data/resolvers/";
-var consolere = require("console-remote-client").connect(
-  "console.re",
-  "80",
-  "crtecnicos"
-);
+// var consolere = require("console-remote-client").connect(
+//   "console.re",
+//   "80",
+//   "crtecnicos"
+// );
 
 
 
