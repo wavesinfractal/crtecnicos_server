@@ -8,7 +8,7 @@ const SchemaOrdenServicio = new mongoose.Schema({
   revizado: Boolean,
   estado: {
     type: String,
-    enum: ["PENDIENTE", "PENDIENTE REPUESTO", "NO ENCONTRADO"],
+    enum: ["PENDIENTE", "PENDIENTE REPUESTO", "NO ENCONTRADO", "CANCELADO_X_CLIENTE"],
     default: "PENDIENTE"
   },
   fecha_inicio: Date,
@@ -20,7 +20,7 @@ const SchemaOrdenServicio = new mongoose.Schema({
   },
   tecnico: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "tecnicos",
+    ref: "usuarios",
     required: true
   },
   articulo: {

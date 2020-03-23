@@ -12,7 +12,7 @@ estado: ESTADO
 fecha_inicio: Date
 fecha_programacion: Date
 usuario:  Usuario
-tecnico: Tecnico
+tecnico: Usuario
 articulo: Articulo
 falla: String
 direccion: String
@@ -23,6 +23,7 @@ mensaje: String
 }
 
 input OrdenServicioInput {
+id:ID
 orden: Int
 estado:ESTADO
 fecha_programacion: Date
@@ -36,9 +37,11 @@ reporte: Int
 }
 
 enum ESTADO {
+  TERMINADO
   PENDIENTE
   PXR
   CANCELADO
+  CANCELADO_X_CLIENTE
 }
 
 `;

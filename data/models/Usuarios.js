@@ -8,11 +8,16 @@ const userSchema = new mongoose.Schema({
   cedula: { type: Number, unique: true, require: [true, "El campo requerido"] },
   password: { type: String, require: [true, "El campo requerido"] },
   nombre: { nombre: String, apellido1: String, apellido2: String },
-  foto: String,
+  imagenes: [{ tipo: String, url: String }],
   zona: { provincia: Number, canton: Number, distrito: Number },
   direccion: { type: String, require: [true, "El campo requerido"] },
   telefonos: [Number],
   empresa: String,
+  tecnicoid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "tecnicos",
+    required: true
+  },
   nacimiento: String,
   status: { type: Boolean }
 });

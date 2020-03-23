@@ -14,72 +14,98 @@ export const OrdenServicio = {
       // if (!sesion) {
       // 	return null
       // }
-      const find = JSON.parse(buscar);
+      var objeto = new Object();
+      buscar.map(data => {
+        objeto[data.index] = data.value;
+      });
+        
       return modelOrdenServicio
-        .find(find)
+        .find(objeto)
         .limit(limite)
         .skip(offset)
         .populate("usuario")
-        .populate('articulo')
-        .populate('tecnico')
-        .exec(); 
-        ;
+        .populate("articulo")
+        .populate("tecnico")
+        .exec();
     },
     getOrdenServicio: async (root, { inputId }) => {
-      try {   
-
+      try {
         let resultado = await modelOrdenServicio
           .findOne({ _id: inputId })
           .populate("usuario")
-          .populate('articulo')
-          .populate('tecnico')
-          .exec();          
-          return resultado
+          .populate("articulo")
+          .populate("tecnico")
+          .exec();
+        return resultado;
       } catch (err) {
-        return err
+        return err;
       }
     }
   },
   Mutation: {
-    crearOrdenServicio: async (root, { input }) => {
+    crearOrdenServicio: async (root, { inputData }) => {
       try {
-      //  console.log( modelTecnicos.findOne({tecnico: input.tecnico}))
+        console.log(inputData)
+        //  console.log( modelTecnicos.findOne({tecnico: input.tecnico}))
         const nuevaOrdenServicio = await new modelOrdenServicio({
-          
           pendiente: true,
           revizado: false,
           estado: "PENDIENTE",
           fecha_inicio: moment().format("L"),
           fecha_programacion: moment(
-            input.fecha_programacion,
+            inputData.fecha_programacion,
             "DD-MM-YYYY"
           ).format("L"),
-          usuario: input.usuario,
-          tecnico: input.tecnico,
-          articulo: input.articulo,
-          falla: input.falla,
-          direccion: input.direccion,
-          telefonos: input.telefonos
+          usuario: inputData.usuario,
+          tecnico: inputData.tecnico,
+          articulo: inputData.articulo,
+          falla: inputData.falla,
+          direccion: inputData.direccion,
+          telefonos: inputData.telefonos
         });
         nuevaOrdenServicio.id = await nuevaOrdenServicio._id;
-        const salvar = await nuevaOrdenServicio.save()
-        
-       
+        const salvar = await nuevaOrdenServicio.save();
+
         return salvar;
       } catch (err) {
         return err;
       }
     },
-    actualizarCliente: async (root, { inputData }) => {
+    actualizarOrdenServicio: async (root, { inputData }) => {
+      inputData.fecha_inicio = moment(
+        inputData.fecha_programacion,
+        "DD-MM-YYYY"
+      ).format("L");
+      inputData.fecha_programacion = moment(
+        inputData.fecha_programacion,
+        "DD-MM-YYYY"
+      ).format("L");
+      console.log(inputData.fecha_inicio);
       try {
         const actualizar = await modelOrdenServicio.findOneAndUpdate(
           { _id: inputData.id },
-          inputData,
+          { falla: inputData.falla },
           { new: true }
         );
+        if (!actualizar) throw new Error("No se encontro la Orden de Servicio");
         return actualizar;
       } catch (err) {
-        console.log(`Error al actualizar ${err}`);
+        return err;
+      }
+    },
+    cancelarOrdenServicio: async (root, { id }) => {
+      console.log(id);
+      try {
+        const actualizar = await modelOrdenServicio.findOneAndUpdate(
+          { _id: id },
+          { pendiente: false, estado: "CANCELADO_X_CLIENTE" },
+          { new: false }
+        );
+        if (!actualizar) throw new Error("No se encontro la Orden de Servicio");
+        return "Se a cancelado la orden";
+      } catch (err) {
+        console.log(err);
+        return err;
       }
     },
 

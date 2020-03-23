@@ -6,7 +6,9 @@ type Usuario {
 	movil: Int
 	email: String 
 	cedula: Int
-	nombre: Nombre		
+	nombre: Nombre	
+	imagenes: [Imagen]
+	rol: String	
 	foto: String
 	zona: Zona
 	direccion: String
@@ -14,6 +16,7 @@ type Usuario {
 	empresa: String
 	nacimiento: String
 	status: Boolean
+	tecnicoid: Tecnico
 	mensaje: String 	
 }
 
@@ -22,13 +25,15 @@ input UsuarioInput {
     email: String!
 	cedula: Int!
     password: String!
-	nombre: InputNombre!		
+	nombre: InputNombre!
+	imagenes: [Imageninput]
+	rol: String			
 	foto: String
 	zona: InputZona
 	direccion: String
 	telefonos: [Int]
 	empresa: String
-	nacimiento: String 
+	nacimiento: String 	
 }
 
 type UsuarioAct {	
@@ -43,6 +48,14 @@ type UsuarioAct {
 	status: Boolean
   }
 
-   
+  input Imageninput{
+	tipo: String
+	url:  String
+   }
+   type Imagen{
+	tipo: String
+	url:  String
+   }
+
   `;
 

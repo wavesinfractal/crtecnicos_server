@@ -3,14 +3,7 @@ export const TdTecnicos =
 
 
 `
-input TecnicoInput {
-  id: ID
-  cedula: Int
-  movil:Int
-  email: String
-  nombre: InputNombre  
-  telefonos:[InputTelefono] 
-  zona: InputZona
+input TecnicoInput {   
   lineas: [InputLineasTec]
   tarifas: [InputTarifaTec]
   skills: [InputSkills]
@@ -19,12 +12,6 @@ input TecnicoInput {
 }
 type Tecnico {
   id: ID
-  cedula: Int
-  movil:Int
-  nombre: Nombre 
-  email: String  
-  telefonos:[Telefono] 
-  zona: Zona    
   lineas: [LineasTec]
   tarifas: [TarifaTec]
   skills: [Skills]
@@ -48,6 +35,9 @@ type Skills{
   fechaInicio: String
   fechafin: String 
 }
+
+
+
 
 
 

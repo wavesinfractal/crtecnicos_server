@@ -38,7 +38,7 @@ const server = new ApolloServer({
           const token = bearertoken.replace("Bearer ", ""); //recorta el Bearer y deja unicamente el token
           const sesion = await jwt.verify(token, process.env.SECRET);
           req.sesion = sesion;
-          console.log(token);
+          // console.log(token);
 
           return { sesion };
         } catch (err) {

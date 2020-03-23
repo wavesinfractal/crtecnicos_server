@@ -1,4 +1,4 @@
-export const  TdGeneral = `
+export const TdGeneral = `
     
     type Query {
         totalOrdenServicio:Int
@@ -9,13 +9,15 @@ export const  TdGeneral = `
         usuarioActual: UsuarioAct
         sendMail: String
     #--------------------------------------------------------- 
-        getOrdenesServicio(limite:Int,offset:Int,buscar:String):[OrdenServicio]      
+        getOrdenesServicio(limite:Int,offset:Int,buscar:[DataInput]):[OrdenServicio]      
         getOrdenServicio(inputId:ID):OrdenServicio 
     #--------------------------------------------------------- 
-        getClientes(limite:Int,offset:Int,buscar:String):[Cliente]       
+        getClientes(limite:Int,offset:Int,buscar:DataInput):[Cliente]       
         getCliente(inputId:ID):Cliente    
+
+     
         #--------------------------------------------------------- 
-        getUsuarios(limite:Int,offset:Int,buscar:String):[Usuario]       
+        getUsuarios(limite:Int,offset:Int,buscar:[DataInput]):[Usuario]       
         getUsuario(inputId:ID):Usuario
     #--------------------------------------------------------- 
         getTecnicos(limite:Int,buscar:String):[Tecnico]
@@ -44,16 +46,24 @@ export const  TdGeneral = `
         eliminarCliente(id:ID!):String    
     #---------------------------------------------------------------
     
-        crearOrdenServicio(input:OrdenServicioInput): OrdenServicio 
+        crearOrdenServicio(inputData:OrdenServicioInput): OrdenServicio 
         actualizarOrdenServicio(inputData:OrdenServicioInput): OrdenServicio
-        eliminarOrdenServicio(id:ID!):OrdenServicio  
-
+        cancelarOrdenServicio(id:ID!): String
+        eliminarOrdenServicio(id:ID!):String  
+        
+        CrearBoletaReparacion(inputData:BoletaReparacionInput): BoletaReparacion
 #------------------------------------------------------
         crearArticulo(inputData:ArticuloInput): Articulo 
         actualizarArticulo (inputData:ArticuloInput): Articulo
         eliminarArticulo (id:ID!):String  
     }   
-   
+
+    input DataInput {
+        index: String
+        value:String        
+    }
+
+
     input InputCodConf {
         movil:Int
         email:String

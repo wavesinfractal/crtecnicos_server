@@ -8,10 +8,16 @@ export const Usuarios = {
       return await modelUsuarios.countDocuments();
     },
     getUsuarios: async (root, { limite, buscar, offset }, { sesion }) => {
+      var objeto = new Object();
+      buscar.map(data => {
+        objeto[data.index] = data.value;
+      });
       const data = await modelUsuarios
-        .find(buscar)
+        .find(objeto)
         .limit(limite)
-        .skip(offset);
+        .skip(offset)
+        .populate("tecnicoid")
+        .exec();
       return data;
     },
     usuarioActual: async (root, args, { sesion }) => {
@@ -45,7 +51,7 @@ export const Usuarios = {
       }
       if (existemail) {
         return { mensaje: "El Email ya existe" };
-      }      
+      }
       const nuevoUsuario = await new modelUsuarios({
         movil: inputData.movil,
         email: inputData.email,
@@ -57,7 +63,7 @@ export const Usuarios = {
         direccion: inputData.direccion,
         telefonos: inputData.telefonos,
         empresa: inputData.empresa,
-        nacimiento: inputData.nacimiento,       
+        nacimiento: inputData.nacimiento,
         status: false
       }).save();
       nuevoUsuario.mensaje = "Se a creado la cuenta";

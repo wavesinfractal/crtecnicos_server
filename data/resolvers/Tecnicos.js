@@ -18,13 +18,15 @@ export const Tecnicos = {
           movil: inputData.movil,
           email: inputData.email,
           nombre: inputData.nombre,
+          password: inputData.password,
           telefonos: inputData.telefonos,
           zona: inputData.zona,
           direccion: inputData.direccion,
+          imagenes: inputData.imagenes,
           lineas: inputData.lineas,
           tarifas: inputData.tarifas,
           skills: inputData.skills,
-          raking: inputData.raking,
+          raking: inputData.raking,          
           zonas: inputData.zonas
         });
         nuevoTecnico.id = nuevoTecnico._id;

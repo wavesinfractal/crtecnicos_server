@@ -5,25 +5,30 @@ type Articulo {
   propietario: String
   serie: String
   modelo: String
+  descripcion: String
+  fechacompra: String
   imagenes: [ImagenArticulo]
   mensaje: String
 }
 
 
  input ArticuloInput {  
-  propietario: String!
-  serie: String !
-  modelo: String!
+  propietario: String
+  serie: String 
+  modelo: String
+  descripcion: String
   fechacompra: String
   imagenes: [InputImagenArticulo] 
 }
 
 type ImagenArticulo {
-  imagen: String
+  thumb: String
+  imagen: [String]
 }
 
 input InputImagenArticulo {
-  imagen:String
+  thumb: String
+  imagen: [String]
 }
 
 
